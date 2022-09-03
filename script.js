@@ -1,9 +1,12 @@
 /* Load Data For Categories */
 const loadCategoryData = async () => {
-    const res = await fetch(`https://openapi.programming-hero.com/api/news/categories`)
-    const data = await res.json()
-    // .catch(error => console.log(error))
-    return data.data.news_category
+    try {
+        const res = await fetch(`https://openapi.programming-hero.com/api/news/categories`)
+        const data = await res.json()
+        return data.data.news_category
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 const categories = async () => {
@@ -33,9 +36,9 @@ const category = async (id) => {
     countCategory.innerHTML = ` 
         <p><b>${newses.length > 0 ? newses.length + ' items found for this category.' : 'No news found'}</b></p>
     `
-    console.log(newses)
+
     /* Get Every News for Categories */
-    for (const news of newses) {
+    for (let news of newses) {
         const { author, thumbnail_url, title, details, total_view } = news
         const { img, name, published_date } = author
 
