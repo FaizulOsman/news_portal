@@ -9,6 +9,7 @@ const loadCategoryData = async () => {
     }
 }
 
+// Category Adding Function
 const categories = async () => {
     const loadCategories = await loadCategoryData()
     const categorySection = document.getElementById('category-section')
@@ -24,6 +25,7 @@ const categories = async () => {
 }
 categories()
 
+// News Display Dynamically
 const category = async (id) => {
     spinner(true)
     const url = `https://openapi.programming-hero.com/api/news/category/0${id}`
@@ -59,12 +61,12 @@ const category = async (id) => {
                 <div class="card-body py-0 w-full md:w-5/6 pt-5 md:pt-0">
                     <h2 class="card-title">${title}</h2>
                     <p class="text-sm">${details.length > 300 ? details.slice(0, 300) + '...' : details}</p>
-                    <div class="card-actions flex justify-between items-center">
+                    <div class="card-actions flex flex-col sm:flex-row justify-between items-center">
                         <div class="flex my-2">
                             <img class="w-10 rounded-full" src="${img}" />
                             <div class="pl-4">
                                 <h5 class="font-semibold">${name === null || name === '' ? 'No Name Available' : name}</h5>
-                                <p>${published_date === null ? 'No Published Date' : published_date}</p>
+                                <p class="text-sm">${published_date === null ? 'No Published Date' : published_date}</p>
                             </div>
                         </div>
                         <div class="flex items-center my-2">
@@ -92,13 +94,13 @@ const category = async (id) => {
     spinner(false)
 }
 
+// Modal Opening Function
 const newsModal = async (idNumber) => {
     const res = await fetch(`https://openapi.programming-hero.com/api/news/${idNumber}`)
     const data = await res.json()
     const { total_view, details, thumbnail_url, title, author } = data.data[0]
     const { name, img, published_date } = author
 
-    console.log(data.data[0])
     const modalBody = document.getElementById('modal-body')
     modalBody.innerHTML = `
         <div class="modal-box relative">
@@ -109,15 +111,16 @@ const newsModal = async (idNumber) => {
             <div class="py-4 flex flex-col sm:flex-row justify-between items-center">
                 <div class="mt-3 flex flex-col justify-center">
                     <img class="w-10 rounded-lg mx-auto" src="${img}">
-                    <p>Name: ${name}</p>
+                    <h5 class="font-semibold">${name === null || name === '' ? 'No Name Available' : name}</h5>
                 </div>
-                <p class="mt-3">${total_view}</p>
-                <p class="mt-3">${published_date}</p>                               
+                <p class="mt-3">${total_view === null ? 'No View Available' : total_view}</p>
+                <p class="mt-3">${published_date === null ? 'No Published Date' : published_date}</p>                               
             </div>
         </div>
     `
 }
 
+// Spinner Adding Function
 const spinner = (isTrue) => {
     const spinnerDisplay = document.getElementById('spinner-display')
     if (isTrue === true) {
