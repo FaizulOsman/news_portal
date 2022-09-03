@@ -12,14 +12,6 @@ const loadCategoryData = async () => {
 const categories = async () => {
     const loadCategories = await loadCategoryData()
     const categorySection = document.getElementById('category-section')
-    // for (const category of loadCategories) {
-    //     const div = document.createElement('div')
-    //     div.classList.add('mt-3')
-    //     div.innerHTML = `
-    //         <a onclick="category(${category.category_id})" class="py-3 text-sm">${category.category_name}</a>
-    //     `
-    //     categorySection.appendChild(div)
-    // }
 
     loadCategories.forEach(category => {
         const div = document.createElement('div')
@@ -46,11 +38,13 @@ const category = async (id) => {
     countCategory.innerHTML = ` 
         <p><b>${newses.length > 0 ? newses.length + ' items found for this category.' : 'No News Found'}</b></p>
     `
+    newses.sort((a, b) => {
+        return b.total_view - a.total_view;
+    });
 
     /* Get Every News for Categories */
-    // for (let news of newses) {
     newses.forEach(news => {
-        const { author, thumbnail_url, title, details, total_view } = news
+        const { author, thumbnail_url, title, details, total_view, _id } = news
         const { img, name, published_date } = author
 
 
@@ -64,7 +58,7 @@ const category = async (id) => {
                 </figure>
                 <div class="card-body py-0 w-full md:w-5/6 pt-5 md:pt-0">
                     <h2 class="card-title">${title}</h2>
-                    <p class="text-sm">${details.length > 300 ? details.slice(0, 300) + '...........' : details}</p>
+                    <p class="text-sm">${details.length > 300 ? details.slice(0, 300) + '...' : details}</p>
                     <div class="card-actions flex justify-between items-center">
                         <div class="flex my-2">
                             <img class="w-10 rounded-full" src="${img}" />
@@ -85,7 +79,7 @@ const category = async (id) => {
                             <i class="fa-regular fa-star"></i>
                         </div>
                         <div class=" my-2">
-                            <label onclick="newsModal('${title}','${name === null || name === '' ? 'No Name available' : name}', '${img}', '${total_view === null ? 'No View Available' : total_view}','${published_date === null ? 'No Published Date' : published_date}')" for="my-modal-3" class="btn modal-button">
+                            <label onclick="newsModal('${_id}')" for="my-modal-3" class="btn modal-button">
                                 <i class="fa-solid fa-arrow-right"></i>
                             </label>
                         </div>
@@ -95,26 +89,32 @@ const category = async (id) => {
         `
         newsSection.appendChild(div)
     })
-    // }
     spinner(false)
 }
 
-const newsModal = (title, name, img, total_view, published_date) => {
-    const modal = document.getElementById('modal-area')
-    modal.innerHTML = `
-    <input type="checkbox" id="my-modal-3" class="modal-toggle" />
-    <div class="modal">
+const newsModal = async (idNumber) => {
+    const res = await fetch(`https://openapi.programming-hero.com/api/news/${idNumber}`)
+    const data = await res.json()
+    const { total_view, details, thumbnail_url, title, author } = data.data[0]
+    const { name, img, published_date } = author
+
+    console.log(data.data[0])
+    const modalBody = document.getElementById('modal-body')
+    modalBody.innerHTML = `
         <div class="modal-box relative">
             <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-            <h3 class="text-lg font-bold mr-5">${title}</h3>
-            <img class="py-4" src="${img}">
-            <div class="py-4 flex justify-between">
-                <p>${name}</p>
-                <p>${total_view}</p>
-                <p>${published_date}</p>                               
+            <h3 class="text-lg font-bold pr-2">${title}</h3>
+            <img class="mx-auto my-2" src="${thumbnail_url}">
+            <p><b>Description: </b>${details.length > 300 ? details.slice(0, 300) + '...' : details}</p>
+            <div class="py-4 flex flex-col sm:flex-row justify-between items-center">
+                <div class="mt-3 flex flex-col justify-center">
+                    <img class="w-10 rounded-lg mx-auto" src="${img}">
+                    <p>Name: ${name}</p>
+                </div>
+                <p class="mt-3">${total_view}</p>
+                <p class="mt-3">${published_date}</p>                               
             </div>
         </div>
-    </div>
     `
 }
 
@@ -125,26 +125,4 @@ const spinner = (isTrue) => {
     } else {
         spinnerDisplay.classList.add('hidden')
     }
-}
-
-
-
-
-
-/* News and Blog button click handler */
-const blogButton = () => {
-    document.getElementById('news-button').classList.remove("underline", "underline-offset-8", "decoration-4", "decoration-blue-600", "text-blue-500")
-    document.getElementById('blog-button').classList.add("underline", "underline-offset-8", "decoration-4", "decoration-blue-600", "text-blue-500")
-    document.getElementById('main-section').style.display = 'none'
-    document.getElementById('accordion').classList.remove('hidden')
-    document.getElementById('category-area').style.display = 'none'
-}
-
-
-const newsButton = () => {
-    document.getElementById('blog-button').classList.remove("underline", "underline-offset-8", "decoration-4", "decoration-blue-600", "text-blue-500")
-    document.getElementById('news-button').classList.add("underline", "underline-offset-8", "decoration-4", "decoration-blue-600", "text-blue-500")
-    document.getElementById('main-section').style.display = 'block'
-    document.getElementById('accordion').classList.add('hidden')
-    document.getElementById('category-area').style.display = 'block'
 }
