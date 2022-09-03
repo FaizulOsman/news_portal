@@ -14,7 +14,7 @@ const categories = async () => {
     for (const category of loadCategories) {
         const div = document.createElement('div')
         div.innerHTML = `
-            <p>${category.category_name}</p>
+            <a href="#" class="py-3 text-sm">${category.category_name}</a>
         `
         categorySection.appendChild(div)
     }

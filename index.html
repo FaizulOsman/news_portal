@@ -10,6 +10,8 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.24.0/dist/full.css" rel="stylesheet" type="text/css" />
     <!-- Link Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Link FontAwesome -->
+    <script src="https://kit.fontawesome.com/ce71f195fc.js" crossorigin="anonymous"></script>
 </head>
 
 <body class="bg-gray-200">
@@ -32,16 +34,70 @@
         </nav>
         <!-- Categories area -->
         <div class="my-5 mx-auto text-center">
-            <div id="category-section" class="grid grid-cols-3 md:grid-cols-7">
+            <div id="category-section" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8">
 
             </div>
         </div>
+    </header>
+
+    <!-- Main Section -->
+    <main class="w-11/12 mx-auto">
         <!-- Count Category -->
-        <div class="bg-white rounded-md p-3">
+        <div class="bg-white rounded-md p-4">
             <p><b>4 items found for category Entertainment</b></p>
         </div>
+        <!-- Sort By View -->
+        <div class="flex justify-between my-5 items-center">
+            <div>
+                <p><b>Sort Ny View:</b></p>
+            </div>
+            <div>
+                <button class="btn btn-primary rounded-md">Button</button>
+                <button class="btn btn-outline rounded-md">Button</button>
+            </div>
+        </div>
 
-    </header>
+
+        <div class="news my-10">
+            <div class="card card-side bg-base-100 shadow-xl p-4 flex flex-col md:flex-row justify-center">
+                <figure class="w-1/4 md:w-1/6 mx-auto"><img class="rounded" src="https://placeimg.com/200/280/arch"
+                        alt="Movie">
+                </figure>
+                <div class="card-body py-0 w-full md:w-5/6 pt-5 md:pt-0">
+                    <h2 class="card-title">New movie is released!</h2>
+                    <p class="text-sm">Click the buttonlore Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                        Aut molestiae incidunt sapiente iure in ut similique natutio facilis a
+                        id modi perspiciatis vero magnam incidunt eos quae consequuntur. Eius atque, similique eum
+                        voluptates, officia beatae ipsum quisquam placeat quas voluptatum veritatis amet perspiciatis!
+                        Deserunt esse dolorum sapiente. to watch on Jetflix app.</p>
+                    <div class="card-actions flex justify-between items-center">
+                        <div class="flex my-2">
+                            <img class="w-10 rounded-full" src="https://placeimg.com/80/80/people" />
+                            <div class="pl-4">
+                                <h5 class="font-semibold">Jane Copper</h5>
+                                <p>Jan 10, 2022</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center my-2">
+                            <i class="fa-regular fa-eye mr-3"></i>
+                            <p>1.5M</p>
+                        </div>
+                        <div class=" my-2">
+                            <i class="fa-regular fa-star-half-stroke"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                        </div>
+                        <div class=" my-2">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
 
 
 
