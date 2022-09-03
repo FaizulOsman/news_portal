@@ -1,10 +1,8 @@
 /* Load Data For Categories */
 const loadCategoryData = async () => {
-    // fetch(`https://openapi.programming-hero.com/api/news/categories`)
-    //     .then(res => res.json())
-    //     .then(data => console.log(data.data.news_category))
     const res = await fetch(`https://openapi.programming-hero.com/api/news/categories`)
     const data = await res.json()
+    // .catch(error => console.log(error))
     return data.data.news_category
 }
 
@@ -14,9 +12,91 @@ const categories = async () => {
     for (const category of loadCategories) {
         const div = document.createElement('div')
         div.innerHTML = `
-            <a href="#" class="py-3 text-sm">${category.category_name}</a>
+            <a onclick="category(${category.category_id})" class="py-3 text-sm">${category.category_name}</a>
         `
         categorySection.appendChild(div)
     }
 }
 categories()
+
+const category = async (id) => {
+    const url = `https://openapi.programming-hero.com/api/news/category/0${id}`
+    const res = await fetch(url)
+    const data = await res.json()
+    const newses = data.data
+    const newsSection = document.getElementById('news-section')
+    newsSection.innerHTML = ''
+
+    /* Get Every News for Categories */
+    for (const news of newses) {
+        const { author, thumbnail_url, title, details, total_view } = news
+        const { img, name, published_date } = author
+
+
+        // Cooking News Card
+        const div = document.createElement('div')
+        div.classList.add("mt-5")
+        div.innerHTML = `
+            <div class="card card-side bg-base-100 shadow-xl p-4 flex flex-col md:flex-row justify-center">
+                <figure class="w-1/4 md:w-1/6 mx-auto"><img class="rounded" src="${thumbnail_url}"
+                        alt="Movie">
+                </figure>
+                <div class="card-body py-0 w-full md:w-5/6 pt-5 md:pt-0">
+                    <h2 class="card-title">${title}</h2>
+                    <p class="text-sm">${details.length > 300 ? details.slice(0, 300) + '...........' : details}</p>
+                    <div class="card-actions flex justify-between items-center">
+                        <div class="flex my-2">
+                            <img class="w-10 rounded-full" src="${img}" />
+                            <div class="pl-4">
+                                <h5 class="font-semibold">${name === null || name === '' ? 'No data available' : name}</h5>
+                                <p>${published_date === null ? 'No Published Date' : published_date}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center my-2">
+                            <i class="fa-regular fa-eye mr-3"></i>
+                            <p>${total_view === null ? 'No data available' : total_view}</p>
+                        </div>
+                        <div class=" my-2">
+                            <i class="fa-regular fa-star-half-stroke"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                        </div>
+                        <div class=" my-2">
+                            <label for="my-modal-3" class="btn modal-button"><i onclick="newsModal()" class="fa-solid fa-arrow-right"></i></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `
+        newsSection.appendChild(div)
+    }
+}
+
+const newsModal = () => {
+    const modal = document.getElementById('modal-area')
+    modal.innerHTML = `
+        <div class="modal-box relative">
+            <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+            <h3 class="text-lg font-bold">Congratulations random Internet user!</h3>
+            <p class="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for
+                free!</p>
+        </div>
+    `
+
+
+
+    //     <!-- The button to open modal -->
+    // <label for="my-modal-3" class="btn modal-button">open modal</label>
+
+    // <!-- Put this part before </body> tag -->
+    // <input type="checkbox" id="my-modal-3" class="modal-toggle" />
+    // <div class="modal">
+    //   <div class="modal-box relative">
+    //     <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+    //     <h3 class="text-lg font-bold">Congratulations random Internet user!</h3>
+    //     <p class="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
+    //   </div>
+    // </div>
+}
