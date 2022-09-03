@@ -44,11 +44,12 @@ const category = async (id) => {
     // Count Category
     const countCategory = document.getElementById('count-category')
     countCategory.innerHTML = ` 
-        <p><b>${newses.length > 0 ? newses.length + ' items found for this category.' : 'No news found'}</b></p>
+        <p><b>${newses.length > 0 ? newses.length + ' items found for this category.' : 'No News Found'}</b></p>
     `
 
     /* Get Every News for Categories */
-    for (let news of newses) {
+    // for (let news of newses) {
+    newses.forEach(news => {
         const { author, thumbnail_url, title, details, total_view } = news
         const { img, name, published_date } = author
 
@@ -68,13 +69,13 @@ const category = async (id) => {
                         <div class="flex my-2">
                             <img class="w-10 rounded-full" src="${img}" />
                             <div class="pl-4">
-                                <h5 class="font-semibold">${name === null || name === '' ? 'No data available' : name}</h5>
+                                <h5 class="font-semibold">${name === null || name === '' ? 'No Name Available' : name}</h5>
                                 <p>${published_date === null ? 'No Published Date' : published_date}</p>
                             </div>
                         </div>
                         <div class="flex items-center my-2">
                             <i class="fa-regular fa-eye mr-3"></i>
-                            <p>${total_view === null ? 'No data available' : total_view}</p>
+                            <p>${total_view === null ? 'No View Available' : total_view}</p>
                         </div>
                         <div class=" my-2">
                             <i class="fa-regular fa-star-half-stroke"></i>
@@ -84,7 +85,7 @@ const category = async (id) => {
                             <i class="fa-regular fa-star"></i>
                         </div>
                         <div class=" my-2">
-                            <label onclick="newsModal('${title}','${name === null || name === '' ? 'No data available' : name}', '${img}', '${total_view === null ? 'No data available' : total_view}','${published_date === null ? 'No Published Date' : published_date}')" for="my-modal-3" class="btn modal-button">
+                            <label onclick="newsModal('${title}','${name === null || name === '' ? 'No Name available' : name}', '${img}', '${total_view === null ? 'No View Available' : total_view}','${published_date === null ? 'No Published Date' : published_date}')" for="my-modal-3" class="btn modal-button">
                                 <i class="fa-solid fa-arrow-right"></i>
                             </label>
                         </div>
@@ -93,7 +94,8 @@ const category = async (id) => {
             </div>
         `
         newsSection.appendChild(div)
-    }
+    })
+    // }
     spinner(false)
 }
 
@@ -130,14 +132,15 @@ const spinner = (isTrue) => {
 
 
 /* News and Blog button click handler */
-document.getElementById('blog-button').addEventListener('click', function () {
+const blogButton = () => {
     document.getElementById('main-section').style.display = 'none'
     document.getElementById('accordion').classList.remove('hidden')
     document.getElementById('category-area').style.display = 'none'
-})
+}
 
-document.getElementById('news-button').addEventListener('click', function () {
+
+const newsButton = () => {
     document.getElementById('main-section').style.display = 'block'
     document.getElementById('accordion').classList.add('hidden')
     document.getElementById('category-area').style.display = 'block'
-})
+}
