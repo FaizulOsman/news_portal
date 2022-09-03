@@ -114,3 +114,16 @@ const spinner = (isTrue) => {
         spinnerDisplay.classList.add('hidden')
     }
 }
+
+
+
+
+
+/* News and Blog button click handler */
+document.getElementById('blog-button').addEventListener('click', function () {
+    document.getElementById('main-section').style.display = 'none'
+})
+
+document.getElementById('news-button').addEventListener('click', function () {
+    document.getElementById('main-section').style.display = 'block'
+})
