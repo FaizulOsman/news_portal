@@ -25,8 +25,14 @@
                 </div>
                 <div class="flex-none">
                     <ul class="menu menu-horizontal p-0">
-                        <li onclick="newsButton()"><a>News</a></li>
-                        <li onclick="blogButton()"><a>Blog</a></li>
+                        <li id="news-button"
+                            class="text-blue-500 underline underline-offset-8 decoration-4 decoration-blue-600"
+                            onclick="newsButton()">
+                            <a>News</a>
+                        </li>
+                        <li id="blog-button" onclick="blogButton()">
+                            <a>Blog</a>
+                        </li>
                         <li><img class="w-16 circle" src="https://placeimg.com/80/80/people" /></li>
                     </ul>
                 </div>
@@ -52,7 +58,7 @@
                 <p><b>Sort By View:</b></p>
             </div>
             <div>
-                <button class="btn btn-primary rounded-md">Button</button>
+                <button class="btn border-0 text-white bg-blue-500 rounded-md">Button</button>
                 <button class="btn btn-outline rounded-md">Button</button>
             </div>
         </div>
@@ -103,7 +109,7 @@
                     javascript. Var variable is an old method to declare a variable in javascript. In modern javascript,
                     we use the let and const variable, which is introduced in the ES2015(ES6) update; now, the let and
                     const variable is used more frequently in modern javascript compared to the var variable.</h4>
-                <button class="bg-blue-500 p-2 text-sm text-white font-bold rounded mt-4">Refer now</button>
+                <button class="bg-blue-500 p-2 text-sm text-white font-bold rounded mt-4">Read More</button>
             </div>
         </div>
 
@@ -140,7 +146,7 @@
 
                     However, the arrow functions are only callable and not constructible, i.e., arrow functions can
                     never be used as constructor functions.</h4>
-                <button class="bg-blue-500 p-2 text-sm text-white font-bold rounded mt-4">Refer now</button>
+                <button class="bg-blue-500 p-2 text-sm text-white font-bold rounded mt-4">Read More</button>
             </div>
         </div>
 
@@ -173,7 +179,7 @@
                     .forEach() is great you need to execute a function for each individual element in an array.<br>
                     .filter() when you want to select a subset of multiple elements from an array.<br>
                     .find() When you want to select a single element from an array.</h4>
-                <button class="bg-blue-500 p-2 text-sm text-white font-bold rounded mt-4">Refer now</button>
+                <button class="bg-blue-500 p-2 text-sm text-white font-bold rounded mt-4">Read More</button>
             </div>
         </div>
 
@@ -201,7 +207,7 @@
                     in ES6. It lets us insert/interpolate variables and expressions into strings without needing to
                     concatenate like in older versions of JavaScript. It allows us to create strings that are complex
                     and contain dynamic elements.</h4>
-                <button class="bg-blue-500 p-2 text-sm text-white font-bold rounded mt-4">Refer now</button>
+                <button class="bg-blue-500 p-2 text-sm text-white font-bold rounded mt-4">Read More</button>
             </div>
         </div>
     </section>

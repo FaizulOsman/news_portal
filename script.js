@@ -59,7 +59,7 @@ const category = async (id) => {
         div.classList.add("mt-5")
         div.innerHTML = `
             <div class="card card-side bg-base-100 shadow-xl p-4 flex flex-col md:flex-row justify-center">
-                <figure class="w-1/4 md:w-1/6 mx-auto"><img class="rounded" src="${thumbnail_url}"
+                <figure class="w-1/2 md:w-1/6 mx-auto"><img class="rounded" src="${thumbnail_url}"
                         alt="Movie">
                 </figure>
                 <div class="card-body py-0 w-full md:w-5/6 pt-5 md:pt-0">
@@ -133,6 +133,8 @@ const spinner = (isTrue) => {
 
 /* News and Blog button click handler */
 const blogButton = () => {
+    document.getElementById('news-button').classList.remove("underline", "underline-offset-8", "decoration-4", "decoration-blue-600", "text-blue-500")
+    document.getElementById('blog-button').classList.add("underline", "underline-offset-8", "decoration-4", "decoration-blue-600", "text-blue-500")
     document.getElementById('main-section').style.display = 'none'
     document.getElementById('accordion').classList.remove('hidden')
     document.getElementById('category-area').style.display = 'none'
@@ -140,6 +142,8 @@ const blogButton = () => {
 
 
 const newsButton = () => {
+    document.getElementById('blog-button').classList.remove("underline", "underline-offset-8", "decoration-4", "decoration-blue-600", "text-blue-500")
+    document.getElementById('news-button').classList.add("underline", "underline-offset-8", "decoration-4", "decoration-blue-600", "text-blue-500")
     document.getElementById('main-section').style.display = 'block'
     document.getElementById('accordion').classList.add('hidden')
     document.getElementById('category-area').style.display = 'block'
