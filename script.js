@@ -12,13 +12,23 @@ const loadCategoryData = async () => {
 const categories = async () => {
     const loadCategories = await loadCategoryData()
     const categorySection = document.getElementById('category-section')
-    for (const category of loadCategories) {
+    // for (const category of loadCategories) {
+    //     const div = document.createElement('div')
+    //     div.classList.add('mt-3')
+    //     div.innerHTML = `
+    //         <a onclick="category(${category.category_id})" class="py-3 text-sm">${category.category_name}</a>
+    //     `
+    //     categorySection.appendChild(div)
+    // }
+
+    loadCategories.forEach(category => {
         const div = document.createElement('div')
+        div.classList.add('mt-3')
         div.innerHTML = `
-            <a onclick="category(${category.category_id})" class="py-3 text-sm">${category.category_name}</a>
+            <a style="cursor: pointer;" onclick="category(${category.category_id})"class="py-3 text-sm">${category.category_name}</a>
         `
         categorySection.appendChild(div)
-    }
+    });
 }
 categories()
 
@@ -122,8 +132,12 @@ const spinner = (isTrue) => {
 /* News and Blog button click handler */
 document.getElementById('blog-button').addEventListener('click', function () {
     document.getElementById('main-section').style.display = 'none'
+    document.getElementById('accordion').classList.remove('hidden')
+    document.getElementById('category-area').style.display = 'none'
 })
 
 document.getElementById('news-button').addEventListener('click', function () {
     document.getElementById('main-section').style.display = 'block'
+    document.getElementById('accordion').classList.add('hidden')
+    document.getElementById('category-area').style.display = 'block'
 })
