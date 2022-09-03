@@ -20,6 +20,7 @@ const categories = async () => {
 categories()
 
 const category = async (id) => {
+    spinner(true)
     const url = `https://openapi.programming-hero.com/api/news/category/0${id}`
     const res = await fetch(url)
     const data = await res.json()
@@ -27,6 +28,12 @@ const category = async (id) => {
     const newsSection = document.getElementById('news-section')
     newsSection.innerHTML = ''
 
+    // Count Category
+    const countCategory = document.getElementById('count-category')
+    countCategory.innerHTML = ` 
+        <p><b>${newses.length > 0 ? newses.length + ' items found for this category.' : 'No news found'}</b></p>
+    `
+    console.log(newses)
     /* Get Every News for Categories */
     for (const news of newses) {
         const { author, thumbnail_url, title, details, total_view } = news
@@ -74,6 +81,7 @@ const category = async (id) => {
         `
         newsSection.appendChild(div)
     }
+    spinner(false)
 }
 
 const newsModal = (title, name, img, total_view, published_date) => {
@@ -93,4 +101,13 @@ const newsModal = (title, name, img, total_view, published_date) => {
         </div>
     </div>
     `
+}
+
+const spinner = (isTrue) => {
+    const spinnerDisplay = document.getElementById('spinner-display')
+    if (isTrue === true) {
+        spinnerDisplay.classList.remove('hidden')
+    } else {
+        spinnerDisplay.classList.add('hidden')
+    }
 }
